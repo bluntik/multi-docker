@@ -5,23 +5,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t bluntik/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t blunt/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true bluntik/react-test npm test
+  - docker run -e CI=true blunt/react-test npm test
 
 after_success:
-  - docker build -t bluntik/multi-client ./client
-  - docker build -t bluntik/multi-nginx ./nginx
-  - docker build -t bluntik/multi-server ./server
-  - docker build -t bluntik/multi-worker ./worker
+  - docker build -t blunt/multi-client ./client
+  - docker build -t blunt/multi-nginx ./nginx
+  - docker build -t blunt/multi-server ./server
+  - docker build -t blunt/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push bluntik/multi-client
-  - docker push bluntik/multi-nginx
-  - docker push bluntik/multi-server
-  - docker push bluntik/multi-worker
+  - docker push blunt/multi-client
+  - docker push blunt/multi-nginx
+  - docker push blunt/multi-server
+  - docker push blunt/multi-worker
 
 deploy:
   provider: elasticbeanstalk
